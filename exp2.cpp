@@ -75,14 +75,14 @@ std::vector<int> dijkstraAlgorithm(int* adjMat, size_t maxSize, size_t startVert
         }
 
         s[u] = 1;
+        std::cout << "u = " << u << std::endl;
 
         for(size_t v = 0; v < maxSize; ++v)
         {
-            std::cout << "w(" << u << ',' << v << ") = " << w(u,v) << std::endl;
             if(w(u, v) != -1 && L[u] + w(u, v) < L[v] && !s[v])
             {
                 L[v] = L[u] + w(u, v);
-                std::cout << "L[" << v << "] = " << "L[" << u << "] + w(" << u << ", "
+                std::cout << "L[" << v << "] = " << "L[" << u << "] + w(" << u << ", " << v << ")\n";
             }
         }
     }
