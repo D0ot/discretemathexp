@@ -1,1 +1,0 @@
-/usr/bin/g++-7  -g  -rdynamic CMakeFiles/discretemath.dir/exp2.cpp.o  -o discretemath 

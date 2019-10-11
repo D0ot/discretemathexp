@@ -1,5 +1,0 @@
-/home/doot/learnthings/discretemath/build/CMakeFiles/rebuild_cache.dir
-/home/doot/learnthings/discretemath/build/CMakeFiles/edit_cache.dir
-/home/doot/learnthings/discretemath/build/CMakeFiles/discretemath.dir
-/home/doot/learnthings/discretemath/build/CMakeFiles/package_source.dir
-/home/doot/learnthings/discretemath/build/CMakeFiles/package.dir
