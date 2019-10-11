@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/doot/learnthings/discretemath/build",
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/discretemath.dir/exp2.cpp.o -c /home/doot/learnthings/discretemath/exp2.cpp",
+  "file": "/home/doot/learnthings/discretemath/exp2.cpp"
+}
+]
