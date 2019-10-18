@@ -7,40 +7,41 @@
 #include <iostream>
 #include <vector>
 #include <climits>
+#include <iomanip>
 
 const int N = 8;
 
 
 // 最小生成树，普林算法实现
-void prim(int (*map)[N], int startVertex)
+void prim(float (*map)[N], int s)
 {
     int mst[N];
     // w(mst[i], i) 等于 mindist[i]
     // 如果mst[i] 等于 -1 ，则代表该结点已经加入最小生成树
 
-    int mindist[N]; 
+    float mindist[N];
     // mindist[i]代表所有在最小生成树中的结点到 i 结点的最小的权值
     // 该最小权值对应的边的起点是mst[i]
 
 
     // 每次找到一个结点加入最小生成树中，都要更新mst数组和mindist数组
-    
-    int weightSum = 0;
 
+    float weightSum = 0;
 
+    std::cout << "Start Vertex is " << (s+1) << std::endl;
     for(int i = 0; i < N; ++i)
     {
-        mindist[i] = map[startVertex][i];
-        mst[i] = startVertex;
+        mindist[i] = map[s][i];
+        mst[i] = s;
     }
 
-    mst[startVertex] = -1; // 开始结点被认为已经加入最小生成树
+    mst[s] = -1; // 开始结点被认为已经加入最小生成树
 
     for(int i = 1; i < N; ++i)
     {
         int v = -1;
 
-        int min = INT_MAX/2; 
+        float min = INT_MAX/2;
 
         // 找到最小的mindist[i]的值
         for(int j = 0; j < N; ++j)
@@ -54,9 +55,9 @@ void prim(int (*map)[N], int startVertex)
 
         if(v != -1)
         {
-
+            std::cout << "Add Vertex " << (v+1) << " to MST" << std::endl;
             weightSum += mindist[v];
-            std::cout << "add edge (" << mst[v] + 1 <<", " << v + 1 << ") to MST, w = " << mindist[v] << std::endl;
+            std::cout << "and the edge added is <" << mst[v] + 1 <<", " << v + 1 << "> , w = " << mindist[v] << std::endl;
 
             // 添加v结点到最小生成树
             mst[v] = -1;
@@ -71,63 +72,47 @@ void prim(int (*map)[N], int startVertex)
                 }
             }
 
-        } 
+        }
     }
 
-    std::cout << "Min sum of distance : " << weightSum << std::endl;
+    std::cout << "Min sum of weigh : " << weightSum << std::endl;
 
 }
 
 
 
 
-const int INF = INT_MAX / 2;
-
-
-void test(void)
-{
-    // set N to 6, before start this test
-    /* int map[N][N] = {
-        {0, 6, 1, 5, INF, INF},
-        {6, 0, 5, INF, 3, INF},
-        {1, 5, 0, 5, 6, 4 },
-        {5, INF, 5, 0, INF, 2},
-        {INF, 3, 6, INF, 0, 6},
-        {INF, INF, 4, 2, 6, 0}
-    };
-
-    prim(map, 0);*/
-
-}
 
 int main(void)
 {
-    int x = INF;
-    int map[N][N] = {
-        {0, 13, 21, 9,  7, 18, 20, 18},
-        {13, 0, 9, 18, 12, 28, 23, 11},
-        {21, 9, 0, 26, 17, 25, 19, 10},
-        {9, 18, 26, 0,  7, 16, 15,  9},
-        {7, 12, 17, 7,  0,  9, 11,  8},
-        {18,28, 25, 16, 9,  0,  6, 10},
-        {20,23, 19, 15,11,  6,  0,  5},
-        {18,11, 10,  9, 8,  10, 5,  0}
+    float map[N][N] = {
+        {  0, 1.3, 2.1, 0.9, 0.7, 1.8, 2.0, 1.8},
+        {1.3,   0, 0.9, 1.8, 1.2, 2.8, 2.3, 1.1},
+        {2.1, 0.9, 0,   2.6, 1.7, 2.5, 1.9, 1.0},
+        {0.9, 1.8, 2.6,   0, 0.7, 1.6, 1.5, 0.9},
+        {0.7, 1.2, 1.7, 0.7,   0, 0.9, 1.1, 0.8},
+        {1.8, 2.8, 2.5, 1.6, 0.9,   0, 0.6, 1.0},
+        {2.0, 2.3, 1.9, 1.5, 1.1, 0.6,   0, 0.5},
+        {1.8, 1.1, 1.0, 0.9, 0.8, 1.0, 0.5,   0}
     };
 
-    int directedMap[N][N] = {
-        {0, 13, 21, 9,  7, 18, 20, 18},
-        {x,  0, 9, 18, 12, 28, 23, 11},
-        {x,  x, 0, 26, 17, 25, 19, 10},
-        {x,  x, x,  0,  7, 16, 15,  9},
-        {x,  x, x,  x,  0,  9, 11,  8},
-        {x,  x, x,  x, x,  0,  6, 10},
-        {x,  x, x,  x, x,  x,  0,  5},
-        {x,  x, x,  x, x,  x,  x, 0}
-    };
+    std::cout << "The Adjacent Matrix is \n";
 
-    std::cout << "Undirected\n";
+
+    for(int i = 0; i < N; ++i)
+    {
+        for(int j = 0; j < N; ++j)
+        {
+            std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(1) << map[i][j] << "   ";
+        }
+        std::cout << std::endl;
+
+    }
+
+    std::cout << "Start Prim Algorithm\n";
     prim(map, 0);
+    std::cout << "End Prim Algorithm\n";
 
-    std::cout << "Directed\n";
-    prim(directedMap, 0);
+
+    return 0;
 }
