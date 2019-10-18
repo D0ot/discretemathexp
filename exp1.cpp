@@ -1,4 +1,8 @@
-// using prim algrithm to solve real problem
+/**
+ * @文件名:exp1.cpp
+ * @作者:耿宝源
+ *      使用普林算法来解决实际问题
+ */
 
 #include <iostream>
 #include <vector>
@@ -6,15 +10,21 @@
 
 const int N = 8;
 
-// mst
+
+// 最小生成树，普林算法实现
 void prim(int (*map)[N], int startVertex)
 {
     int mst[N];
-    // start vertex of mindist[i]
+    // w(mst[i], i) 等于 mindist[i]
+    // 如果mst[i] 等于 -1 ，则代表该结点已经加入最小生成树
 
     int mindist[N]; 
-    // i is the end of edge and mindist[i] is the minimal distance to MST
+    // mindist[i]代表所有在最小生成树中的结点到 i 结点的最小的权值
+    // 该最小权值对应的边的起点是mst[i]
 
+
+    // 每次找到一个结点加入最小生成树中，都要更新mst数组和mindist数组
+    
     int weightSum = 0;
 
 
@@ -24,7 +34,7 @@ void prim(int (*map)[N], int startVertex)
         mst[i] = startVertex;
     }
 
-    mst[startVertex] = -1; // the start vertex is added into MST
+    mst[startVertex] = -1; // 开始结点被认为已经加入最小生成树
 
     for(int i = 1; i < N; ++i)
     {
@@ -32,24 +42,26 @@ void prim(int (*map)[N], int startVertex)
 
         int min = INT_MAX/2; 
 
-        // find the min value in mindist
+        // 找到最小的mindist[i]的值
         for(int j = 0; j < N; ++j)
         {
             if(mst[j] != -1 && min > mindist[j])
             {
-                v = j;
+                v = j; //设置v，来记录我们找的下一个结点
                 min = mindist[j];
             }
         }
 
         if(v != -1)
         {
+
             weightSum += mindist[v];
             std::cout << "add edge (" << mst[v] + 1 <<", " << v + 1 << ") to MST, w = " << mindist[v] << std::endl;
 
-            // add v to MST
+            // 添加v结点到最小生成树
             mst[v] = -1;
 
+            // 更新 mst 和 mindist
             for(int j = 0; j < N; ++j)
             {
                 if(mst[j] != -1 && map[v][j] < mindist[j])
@@ -62,7 +74,7 @@ void prim(int (*map)[N], int startVertex)
         } 
     }
 
-    std::cout << "Min Sum of Weight : " << weightSum << std::endl;
+    std::cout << "Min sum of distance : " << weightSum << std::endl;
 
 }
 
